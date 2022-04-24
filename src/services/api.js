@@ -1,13 +1,10 @@
 import axios from "axios";
+import "../setup"
 
 const BASE_URL = "http://localhost:5000";
 
 function createHeaders(token) {
-    return {
-        header: {
-            Authorization: `Bearer ${token}`
-        }
-    }
+    return { headers: { Authorization: `Bearer ${token}` } };
 }
 
 async function signUp(email, password, confirmPassword) {
@@ -22,9 +19,16 @@ async function signIn(email, password) {
     return promise;
 }
 
+async function signOut(token) {
+    const auth = createHeaders(token);
+
+    await axios.delete(`${BASE_URL}/sign-out`, auth);
+}
+
 const api = {
     signUp,
-    signIn
+    signIn,
+    signOut
 }
 
 export default api;
