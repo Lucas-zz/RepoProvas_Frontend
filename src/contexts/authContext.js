@@ -1,6 +1,7 @@
 import React, { createContext, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
+import api from '../services/api';
 
 export const AuthContext = createContext();
 
@@ -11,20 +12,21 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         if (user) {
-            location.pathname === '/mainpage' && navigate('/sign-in');
+            location.pathname === '/sign-in' && navigate('/mainpage');
         } else {
             navigate('/sign-in');
         }
     }, []); //eslint-disable-line
 
-    function logOut() {
-        setUser(null);
-        navigate('/sign-in');
-    }
+    async function logOut() {
+        try {
+            await api.signOut(user.token);
+            setUser(null);
+            navigate('/sign-in');
 
-    function hashtagRedirect(value) {
-        const param = value.split('#')[1];
-        navigate(`/hashtag/${param}`);
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
     return (
