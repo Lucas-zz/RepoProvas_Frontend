@@ -32,7 +32,7 @@ export default function SignIn() {
             setLoading(true);
 
             const promise = await api.signIn(formData.email, formData.password);
-            console.log(promise)
+            console.log(promise.data)
             setUser(promise.data);
             navigate("/mainpage");
 
@@ -53,12 +53,8 @@ export default function SignIn() {
                 alignItems: "center",
             }}
             >
-                <Grid item xs={12}>
-                    <img src={logo} alt="logo" />
-                </Grid>
-
                 <Box sx={{
-                    marginTop: 15,
+                    marginTop: 0,
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
@@ -76,8 +72,8 @@ export default function SignIn() {
                             variant="contained"
                             sx={{ mt: 0, mb: 0 }}
                         >
-                            <GitHubIcon sx={{ mr: 1 }} />
-                            <Typography sx={{ mt: 0 }} component="h1" variant="button">
+                            <GitHubIcon sx={{ mr: 2 }} />
+                            <Typography sx={{ mt: 0.5, mb: 0.5 }} component="h1" variant="button">
                                 Entrar com o GitHub
                             </Typography>
                         </Button>
@@ -118,8 +114,8 @@ export default function SignIn() {
                             />
                         </Grid>
                     </Grid>
-                    <Grid container spacing={2} alignContent="center">
-                        <Grid item xs={12} sm={6} align="left">
+                    <Grid container spacing={2} alignContent="center" justifyContent="space-between">
+                        <Grid item>
                             <Typography
                                 component="p"
                                 variant="overline"
@@ -130,7 +126,7 @@ export default function SignIn() {
                                 Não possuo cadastro
                             </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={6} align="right">
+                        <Grid item>
                             {loading
                                 ?
                                 <LoadingButton

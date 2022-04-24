@@ -53,11 +53,8 @@ export default function SignUp() {
                 alignItems: "center",
             }}
             >
-                <Grid item xs={12}>
-                    <img src={logo} alt="logo" />
-                </Grid>
                 <Box sx={{
-                    marginTop: 15,
+                    marginTop: 0,
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
@@ -75,8 +72,8 @@ export default function SignUp() {
                             variant="contained"
                             sx={{ mt: 0, mb: 0 }}
                         >
-                            <GitHubIcon sx={{ mr: 1 }} />
-                            <Typography sx={{ mt: 0 }} component="h1" variant="button">
+                            <GitHubIcon sx={{ mr: 2 }} />
+                            <Typography sx={{ mt: 0.5, mb: 0.5 }} component="h1" variant="button">
                                 Entrar com o GitHub
                             </Typography>
                         </Button>
@@ -133,8 +130,8 @@ export default function SignUp() {
                             />
                         </Grid>
                     </Grid>
-                    <Grid container spacing={2} alignContent="center">
-                        <Grid item xs={12} sm={6} align="left">
+                    <Grid container spacing={2} alignContent="center" justifyContent="space-between">
+                        <Grid item >
                             <Typography
                                 component="p"
                                 variant="overline"
@@ -145,7 +142,7 @@ export default function SignUp() {
                                 Já possuo cadastro
                             </Typography>
                         </Grid>
-                        <Grid item xs={12} sm={6} align="right">
+                        <Grid item >
                             {loading
                                 ?
                                 <LoadingButton
@@ -163,7 +160,6 @@ export default function SignUp() {
                                     type="submit"
                                     variant="contained"
                                     sx={{ mt: 2, mb: 1 }}
-
                                     disabled={loading}
                                 >
                                     <Typography>
