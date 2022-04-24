@@ -20,12 +20,12 @@ export default function Menu({ option, handleChange }) {
     return (
         <>
             <ToggleButtonGroup
-                color="secondary"
+                sx={{ mt: 4 }}
+                color="primary"
                 value={option}
                 exclusive
                 onChange={handleChange}
-                fullWidth={true}
-                sx={{ mt: 4 }}
+                fullWidth
             >
                 <ToggleButton value="findByDisciplines">DISCIPLINAS</ToggleButton>
                 <ToggleButton value="findByTeachers">PESSOA INSTRUTORA</ToggleButton>
