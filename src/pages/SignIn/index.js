@@ -32,7 +32,6 @@ export default function SignIn() {
             setLoading(true);
 
             const promise = await api.signIn(formData.email, formData.password);
-            console.log(promise.data)
             setUser(promise.data);
             navigate("/mainpage");
 

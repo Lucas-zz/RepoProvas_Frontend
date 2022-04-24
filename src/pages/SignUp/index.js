@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Container, CssBaseline, Divider, Grid, TextField, Typography } from "@mui/material";
+import { Alert, Avatar, Box, Button, Container, CssBaseline, Divider, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
@@ -14,6 +14,8 @@ export default function SignUp() {
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
+    const [isEqualPassword, setEqualPassword] = useState(true);
+    const [isEmailAlreadyInUse, setEmailAlreadyInUse] = useState(false);
 
     const [formData, setFormData] = useState({
         email: "",
@@ -37,7 +39,20 @@ export default function SignUp() {
             navigate("/sign-in");
 
         } catch (error) {
-            alert("Erro. Tente novamente");
+            const timeout = 3000;
+
+            if (error.response.status === 409) {
+                setEmailAlreadyInUse(true);
+                setTimeout(() => {
+                    setEmailAlreadyInUse(false);
+                }, timeout);
+
+            } else if (error.response.status === 401) {
+                setEqualPassword(false)
+                setTimeout(() => {
+                    setEqualPassword(true);
+                }, timeout);
+            }
             console.log(error);
             setLoading(false);
         }
@@ -166,7 +181,6 @@ export default function SignUp() {
                                         Cadastrar
                                     </Typography>
                                 </Button>
-
                                 // <LoadingButton
                                 //     loading
                                 //     sx={{ mt: 2, mb: 1 }}
@@ -174,6 +188,13 @@ export default function SignUp() {
                             }
                         </Grid>
                     </Grid>
+                    {!isEqualPassword &&
+                        <Alert severity="error" justifyContent="center" sx={{ mt: 2 }}>As senhas não coincidem!</Alert>
+                    }
+                    {isEmailAlreadyInUse &&
+                        <Alert severity="error" justifyContent="center" sx={{ mt: 2 }}>Já existe um cadastro com esse email!</Alert>
+                    }
+
                 </Box>
             </Box>
         </Container>
